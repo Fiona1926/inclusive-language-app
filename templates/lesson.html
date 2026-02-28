@@ -19,8 +19,15 @@
     <div class="lesson-layout">
       <aside class="linglong-panel">
         <div class="linglong-card" id="linglongCard">
-          <div class="linglong__icon linglong__icon--watching" id="linglongIcon" aria-hidden="true"></div>
-          <div class="linglong__icon linglong__icon--mad" id="linglongIconMad" aria-hidden="true"></div>
+          <div class="linglong__icon linglong__icon--neutral" id="linglongIconNeutral" aria-hidden="true">
+            <img src="{{ url_for('static', filename='linglong/neutral.png') }}" alt="Linglong neutral" />
+          </div>
+          <div class="linglong__icon linglong__icon--happy" id="linglongIconHappy" aria-hidden="true">
+            <img src="{{ url_for('static', filename='linglong/happy.png') }}" alt="Linglong happy" />
+          </div>
+          <div class="linglong__icon linglong__icon--crying" id="linglongIconCrying" aria-hidden="true">
+            <img src="{{ url_for('static', filename='linglong/crying.png') }}" alt="Linglong crying" />
+          </div>
           <p class="linglong__text" id="linglongText">Linglong is watching...</p>
         </div>
       </aside>
@@ -30,7 +37,7 @@
           <span class="lesson-mode-tag">Reading Mode</span>
           <h1 class="lesson-title">FILL IN THE BLANK</h1>
           <div class="lesson-prompt">
-            <button type="button" class="lesson-prompt__speaker" aria-label="Play sound and read text">🔊</button>
+            <span class="lesson-prompt__speaker" aria-hidden="true">🔊</span>
             <span>Apa ___?</span>
           </div>
           <div class="lesson-options" data-correct="kabar">
@@ -76,7 +83,7 @@
           <span class="lesson-mode-tag">Reading Mode</span>
           <h1 class="lesson-title">CHOOSE THE MEANING</h1>
           <div class="lesson-prompt">
-            <button type="button" class="lesson-prompt__speaker" aria-label="Play sound and read text">🔊</button>
+            <span class="lesson-prompt__speaker" aria-hidden="true">🔊</span>
             <span>Terima kasih</span>
           </div>
           <p class="lesson-question">What does this mean?</p>
@@ -99,7 +106,7 @@
           <span class="lesson-mode-tag">Reading Mode</span>
           <h1 class="lesson-title">FILL IN THE BLANK</h1>
           <div class="lesson-prompt">
-            <button type="button" class="lesson-prompt__speaker" aria-label="Play sound and read text">🔊</button>
+            <span class="lesson-prompt__speaker" aria-hidden="true">🔊</span>
             <span>Selamat ___</span>
           </div>
           <div class="lesson-options" data-correct="pagi">
@@ -121,7 +128,7 @@
           <span class="lesson-mode-tag">Reading Mode</span>
           <h1 class="lesson-title">CHOOSE THE MEANING</h1>
           <div class="lesson-prompt">
-            <button type="button" class="lesson-prompt__speaker" aria-label="Play sound and read text">🔊</button>
+            <span class="lesson-prompt__speaker" aria-hidden="true">🔊</span>
             <span>Sampai jumpa</span>
           </div>
           <p class="lesson-question">What does this mean?</p>

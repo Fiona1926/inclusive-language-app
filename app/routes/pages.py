@@ -8,7 +8,37 @@ pages_bp = Blueprint("pages", __name__)
 
 @pages_bp.route("/", endpoint="index")
 def index():
+    return render_template("login.html", title="Join the Rhythm")
+
+
+@pages_bp.route("/dashboard", endpoint="dashboard")
+def dashboard():
     return render_template("index.html", title="Dashboard")
+
+
+@pages_bp.route("/establish-aura", endpoint="establish_aura")
+def establish_aura():
+    return render_template("establish_aura.html", title="Establish Your Aura")
+
+
+@pages_bp.route("/customize", endpoint="customize")
+def customize():
+    return render_template("customize.html", title="Customize Your Experience")
+
+
+@pages_bp.route("/vibe", endpoint="vibe")
+def vibe():
+    return render_template("vibe.html", title="What's your vibe?")
+
+
+@pages_bp.route("/challenge", endpoint="challenge")
+def challenge():
+    return render_template("challenge.html", title="Beat-Pause Challenge")
+
+
+@pages_bp.route("/challenge/result", endpoint="challenge_result")
+def challenge_result():
+    return render_template("challenge_result.html", title="Challenge Complete")
 
 
 @pages_bp.route("/lessons", endpoint="lessons")

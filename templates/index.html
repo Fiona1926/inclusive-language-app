@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>{{ title }}</title>
-    <meta name="description" content="LinguaScroll — Your language learning dashboard." />
-    <meta name="author" content="LinguaScroll" />
+    <meta name="description" content="LingLong — Your language learning dashboard." />
+    <meta name="author" content="LingLong" />
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
   </head>
 
@@ -16,11 +16,11 @@
         <span class="sidebar__brand">LingLong</span>
       </div>
       <nav class="sidebar__nav" aria-label="Sections">
-        <a class="sidebar__item" href="{{ url_for('pages.index') }}">
+        <a class="sidebar__item" href="{{ url_for('pages.dashboard') }}">
           <span class="sidebar__icon" aria-hidden="true">⌂</span>
           <span>Home</span>
         </a>
-        <a class="sidebar__item sidebar__item--active" href="{{ url_for('pages.index') }}">
+        <a class="sidebar__item sidebar__item--active" href="{{ url_for('pages.dashboard') }}">
           <span class="sidebar__icon" aria-hidden="true">▦</span>
           <span>Dashboard</span>
         </a>
@@ -77,51 +77,71 @@
         <div class="dashboard">
           <section class="card card--slideshow" aria-label="Welcome and progress">
             <div class="slideshow__wrap">
-              <div class="dots dots--vertical" role="tablist" aria-label="Slide navigation">
-                <button class="dot is-active" type="button" role="tab" aria-label="Go to slide 1" aria-current="true" data-dot="0"></button>
-                <button class="dot" type="button" role="tab" aria-label="Go to slide 2" data-dot="1"></button>
-                <button class="dot" type="button" role="tab" aria-label="Go to slide 3" data-dot="2"></button>
-                <button class="dot" type="button" role="tab" aria-label="Go to slide 4" data-dot="3"></button>
+              <div class="dots dots--vertical" role="tablist" aria-label="Reel navigation">
+                <button class="dot is-active" type="button" role="tab" aria-label="Reel 1" aria-current="true" data-dot="0"></button>
+                <button class="dot" type="button" role="tab" aria-label="Reel 2" data-dot="1"></button>
+                <button class="dot" type="button" role="tab" aria-label="Reel 3" data-dot="2"></button>
+                <button class="dot" type="button" role="tab" aria-label="Reel 4" data-dot="3"></button>
+                <button class="dot" type="button" role="tab" aria-label="Reel 5" data-dot="4"></button>
               </div>
-              <div class="slideshow__frame" tabindex="0" aria-label="Slideshow (use left/right arrows)">
+              <div class="slideshow__frame" tabindex="0" aria-label="Video reels (use left/right arrows)">
                 <div class="slides" id="slides">
-                  <figure class="slide is-active" data-slide="0">
-                    <div class="slide__welcome">
-                      <div class="slide__callout">Live conversation happening!</div>
-                      <h2 class="slide__title">Welcome to LinguaScroll</h2>
-                      <p class="slide__subtitle">Your language learning dashboard</p>
-                    </div>
+                  <figure class="slide slide--video is-active" data-slide="0">
+                    <video class="slide__video" data-reel src="{{ url_for('static', filename='video/reel-1.mp4') }}" muted playsinline></video>
                   </figure>
-                  <figure class="slide" data-slide="1">
-                    <img
-                      src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80"
-                      alt="Track your progress — stay consistent with daily goals."
-                      loading="lazy"
-                    />
-                    <div class="slide__overlay">
-                      <h2 class="slide__overlayTitle">Track Your Progress</h2>
-                      <p class="slide__overlaySub">Stay consistent with daily goals</p>
-                    </div>
+                  <figure class="slide slide--video" data-slide="1">
+                    <video class="slide__video" data-reel src="{{ url_for('static', filename='video/reel-2.mp4') }}" muted playsinline></video>
                   </figure>
-                  <figure class="slide" data-slide="2">
-                    <img
-                      src="{{ url_for('static', filename='slides/slide-1.svg') }}"
-                      alt="Spanish greetings: Buenos días."
-                      loading="lazy"
-                    />
+                  <figure class="slide slide--video" data-slide="2">
+                    <video class="slide__video" data-reel src="{{ url_for('static', filename='video/reel-3.mp4') }}" muted playsinline></video>
                   </figure>
-                  <figure class="slide" data-slide="3">
-                    <img
-                      src="{{ url_for('static', filename='slides/slide-2.svg') }}"
-                      alt="Grammar: Ser vs Estar."
-                      loading="lazy"
-                    />
+                  <figure class="slide slide--video" data-slide="3">
+                    <video class="slide__video" data-reel src="{{ url_for('static', filename='video/reel-4.mp4') }}" muted playsinline></video>
+                  </figure>
+                  <figure class="slide slide--video" data-slide="4">
+                    <video class="slide__video" data-reel src="{{ url_for('static', filename='video/reel-5.mp4') }}" muted playsinline></video>
                   </figure>
                 </div>
               </div>
             </div>
             <button class="card__info" type="button" aria-label="Information">ⓘ</button>
           </section>
+
+          <div class="reel-quiz-popup" id="reelQuizPopup" hidden aria-modal="true" aria-labelledby="reelQuizTitle" role="dialog">
+            <div class="reel-quiz-popup__backdrop" id="reelQuizBackdrop"></div>
+            <div class="reel-quiz-popup__box">
+              <h2 class="reel-quiz-popup__title" id="reelQuizTitle">Reel quiz</h2>
+              <form class="reel-quiz-form" id="reelQuizForm">
+                <div class="reel-quiz-q" id="reelQuizQ1" data-answer="high">
+                  <p class="reel-quiz-q__text">1. From the 4th reel, if someone has empathy, he/she will also have a/an … fighting spirit.</p>
+                  <div class="reel-quiz-q__opts">
+                    <label><input type="radio" name="q1" value="low" /> low</label>
+                    <label><input type="radio" name="q1" value="average" /> average</label>
+                    <label><input type="radio" name="q1" value="high" /> high</label>
+                    <label><input type="radio" name="q1" value="empty" /> empty</label>
+                  </div>
+                </div>
+                <div class="reel-quiz-q" id="reelQuizQ2" data-answer="snake">
+                  <p class="reel-quiz-q__text">2. From the 4th reel, which animal has he not seen?</p>
+                  <div class="reel-quiz-q__opts">
+                    <label><input type="radio" name="q2" value="cockroach" /> cockroach</label>
+                    <label><input type="radio" name="q2" value="snake" /> snake</label>
+                    <label><input type="radio" name="q2" value="gecko" /> gecko</label>
+                    <label><input type="radio" name="q2" value="fish" /> fish</label>
+                  </div>
+                </div>
+                <div class="reel-quiz-q" id="reelQuizQ3" data-answer="japan">
+                  <p class="reel-quiz-q__text">3. From the 5th reel, where is the guy going for solo traveling?</p>
+                  <input type="text" class="reel-quiz-q__input" name="q3" placeholder="Your answer" autocomplete="off" />
+                </div>
+                <div class="reel-quiz-popup__feedback" id="reelQuizFeedback" hidden></div>
+                <div class="reel-quiz-popup__actions">
+                  <button type="submit" class="onboarding-btn onboarding-btn--primary">Submit</button>
+                  <button type="button" class="onboarding-btn onboarding-btn--secondary" id="reelQuizClose">Close</button>
+                </div>
+              </form>
+            </div>
+          </div>
 
           <section class="card card--todo" aria-label="To-do">
             <div class="card__head">

@@ -8,12 +8,10 @@
   </head>
 
   <body class="leaderboard-page">
-    <header class="leaderboard-header">
-      <a class="leaderboard-header__logo" href="{{ url_for('pages.index') }}">LingLong</a>
-      <div class="leaderboard-header__timer" aria-label="Session time">
-        <span class="leaderboard-header__clock" aria-hidden="true">🕐</span>
-        <span>0m 33s</span>
-      </div>
+    <header class="profile-header">
+      <a class="profile-header__link" href="{{ url_for('pages.dashboard') }}" aria-label="Home">🏠</a>
+      <h1 class="profile-header__title">LingLong</h1>
+      <a class="profile-header__link" href="#" aria-label="Settings">⚙️</a>
     </header>
 
     <main class="leaderboard-main">
