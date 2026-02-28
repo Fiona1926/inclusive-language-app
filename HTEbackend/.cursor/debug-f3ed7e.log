@@ -1,2 +1,0 @@
-{"hypothesisId": "H1", "message": "env_versions", "data": {"python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:11:29) [Clang 20.1.8 ]", "executable": "/opt/anaconda3/bin/python"}, "runId": "debug_import"}
-{"hypothesisId": "H1", "message": "sqlalchemy_import_failed", "data": {"type": "AssertionError", "str": "Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes {'__firstlineno__', '__static_attributes__'}."}, "runId": "debug_import"}
