@@ -26,8 +26,8 @@ def tts():
 
 
 @tts_stt_bp.route("/stt", methods=["POST"])
+@jwt_required()
 def stt():
-    """Receive recorded audio, convert to text (Whisper), return transcript. Client uses it to auto-select the matching lesson option."""
     data = request.get_json() or {}
     audio = (data.get("audioUrlOrBase64") or "").strip()
     if not audio:
@@ -38,5 +38,4 @@ def stt():
     )
     if not result.get("success"):
         return jsonify({"error": result.get("error", "STT failed")}), 503
-    # Return transcript so the lesson page can automatically select the matching answer option
-    return jsonify({"text": result.get("text", "")})
+    return jsonify({"text": result.get("text")})

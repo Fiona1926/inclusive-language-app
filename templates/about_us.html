@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — LingLong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="about-page">
+    <header class="profile-header">
+      <a class="profile-header__link" href="{{ url_for('pages.dashboard') }}" aria-label="Home">🏠</a>
+      <h1 class="profile-header__title">About Us</h1>
+      <span class="profile-header__link profile-header__link--placeholder" aria-hidden="true"></span>
+    </header>
+
+    <main class="about-main">
+      <section class="about-section">
+        <h2 class="about-section__title">LingLong</h2>
+        <p class="about-section__text">
+          LingLong is your companion for learning languages through rhythm, reels, and real conversation. 
+          We blend short-form video, interactive lessons, and partner practice so you can lock in and level up.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2 class="about-section__title">Our mission</h2>
+        <p class="about-section__text">
+          We believe everyone can learn a language when it fits their vibe. Our goal is to make practice 
+          feel like play—whether you're filling in the blank, watching reels, or chatting with a partner.
+        </p>
+      </section>
+
+      <section class="about-section">
+        <h2 class="about-section__title">Get in touch</h2>
+        <p class="about-section__text">
+          Questions or feedback? We'd love to hear from you. Reach out through the app or visit our support page.
+        </p>
+      </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/api.js') }}" defer></script>
+  </body>
+</html>

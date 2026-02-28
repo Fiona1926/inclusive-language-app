@@ -53,7 +53,15 @@ def lesson():
 
 @pages_bp.route("/profile", endpoint="profile")
 def profile():
-    return render_template("profile.html", title="Profile")
+    return render_template("profile_menu.html", title="Profile")
+
+@pages_bp.route("/profile/account", endpoint="profile_account")
+def profile_account():
+    return render_template("profile.html", title="Account")
+
+@pages_bp.route("/profile/settings", endpoint="profile_settings")
+def profile_settings():
+    return render_template("settings.html", title="Settings")
 
 
 @pages_bp.route("/level/<int:level_id>", endpoint="level")
@@ -64,6 +72,11 @@ def level(level_id):
 @pages_bp.route("/leaderboard", endpoint="leaderboard")
 def leaderboard():
     return render_template("leaderboard.html", title="Leaderboard")
+
+
+@pages_bp.route("/about", endpoint="about_us")
+def about_us():
+    return render_template("about_us.html", title="About Us")
 
 
 @pages_bp.route("/practice/partner", endpoint="practice_partner")

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — LingLong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="profile-menu-page">
+    <div class="profile-menu">
+      <nav class="profile-menu__box" role="menu" aria-label="Profile options">
+        <a class="profile-menu__item profile-menu__item--active" href="{{ url_for('pages.profile_account') }}" role="menuitem">
+          <span class="profile-menu__icon" aria-hidden="true">👤</span>
+          <span class="profile-menu__label">Account</span>
+        </a>
+        <a class="profile-menu__item" href="#" role="menuitem">
+          <span class="profile-menu__icon" aria-hidden="true">➕</span>
+          <span class="profile-menu__label">Create</span>
+        </a>
+        <a class="profile-menu__item" href="{{ url_for('pages.profile_settings') }}" role="menuitem">
+          <span class="profile-menu__icon" aria-hidden="true">⚙️</span>
+          <span class="profile-menu__label">Settings</span>
+        </a>
+      </nav>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/api.js') }}" defer></script>
+  </body>
+</html>

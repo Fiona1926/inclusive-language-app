@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — LingLong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="settings-page">
+    <header class="profile-header">
+      <a class="profile-header__link" href="{{ url_for('pages.profile') }}" aria-label="Back to profile">←</a>
+      <h1 class="profile-header__title">Settings</h1>
+      <span class="profile-header__link profile-header__link--placeholder" aria-hidden="true"></span>
+    </header>
+
+    <main class="settings-main">
+      <div class="settings-tabs" role="tablist" aria-label="Settings sections">
+        <button type="button" class="settings-tab is-active" role="tab" aria-selected="true" data-tab="dark" id="tab-dark">Dark mode</button>
+        <button type="button" class="settings-tab" role="tab" aria-selected="false" data-tab="language" id="tab-language">Language</button>
+        <button type="button" class="settings-tab" role="tab" aria-selected="false" data-tab="accessibility" id="tab-accessibility">Accessibility</button>
+      </div>
+
+      <div class="settings-panels">
+        <section class="settings-panel is-active" role="tabpanel" id="panel-dark" aria-labelledby="tab-dark">
+          <h2 class="settings-panel__title">Dark mode</h2>
+          <p class="settings-panel__text">Control appearance and theme. Toggle dark mode on or off.</p>
+          <div class="settings-panel__content">
+            <label class="settings-toggle">
+              <span class="settings-toggle__label">Use dark theme</span>
+              <input type="checkbox" class="settings-toggle__input" checked aria-label="Use dark theme" />
+              <span class="settings-toggle__slider"></span>
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-panel" role="tabpanel" id="panel-language" aria-labelledby="tab-language" hidden>
+          <h2 class="settings-panel__title">Language</h2>
+          <p class="settings-panel__text">Choose your display and learning language.</p>
+          <div class="settings-panel__content">
+            <label class="settings-select-wrap">
+              <span class="settings-select__label">Display language</span>
+              <select class="settings-select" aria-label="Display language">
+                <option>English</option>
+                <option>Indonesian</option>
+                <option>Spanish</option>
+              </select>
+            </label>
+            <label class="settings-select-wrap">
+              <span class="settings-select__label">Learning language</span>
+              <select class="settings-select" aria-label="Learning language">
+                <option>Indonesian</option>
+                <option>Spanish</option>
+                <option>English</option>
+              </select>
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-panel" role="tabpanel" id="panel-accessibility" aria-labelledby="tab-accessibility" hidden>
+          <h2 class="settings-panel__title">Accessibility</h2>
+          <p class="settings-panel__text">Adjust options for a more comfortable experience.</p>
+          <div class="settings-panel__content">
+            <label class="settings-toggle">
+              <span class="settings-toggle__label">Reduce motion</span>
+              <input type="checkbox" class="settings-toggle__input" aria-label="Reduce motion" />
+              <span class="settings-toggle__slider"></span>
+            </label>
+            <label class="settings-toggle">
+              <span class="settings-toggle__label">High contrast</span>
+              <input type="checkbox" class="settings-toggle__input" aria-label="High contrast" />
+              <span class="settings-toggle__slider"></span>
+            </label>
+            <label class="settings-toggle">
+              <span class="settings-toggle__label">Larger text</span>
+              <input type="checkbox" class="settings-toggle__input" aria-label="Larger text" />
+              <span class="settings-toggle__slider"></span>
+            </label>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/api.js') }}" defer></script>
+    <script>
+      (function () {
+        var tabs = document.querySelectorAll(".settings-tab");
+        var panels = document.querySelectorAll(".settings-panel");
+        tabs.forEach(function (tab) {
+          tab.addEventListener("click", function () {
+            var id = tab.getAttribute("data-tab");
+            tabs.forEach(function (t) {
+              t.classList.remove("is-active");
+              t.setAttribute("aria-selected", "false");
+            });
+            panels.forEach(function (p) {
+              var match = p.id === "panel-" + id;
+              p.classList.toggle("is-active", match);
+              p.hidden = !match;
+              if (match) p.setAttribute("aria-hidden", "false");
+              else p.setAttribute("aria-hidden", "true");
+            });
+            tab.classList.add("is-active");
+            tab.setAttribute("aria-selected", "true");
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
