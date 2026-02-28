@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>{{ title }} — Lessons</title>
+    <meta name="description" content="LinguaScroll — Lessons and levels." />
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="lessons-page">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar__head">
+        <a class="sidebar__logoLink" href="{{ url_for('index') }}" aria-label="Home">
+          <span class="sidebar__logo" aria-hidden="true">L</span>
+        </a>
+        <a class="sidebar__brand" href="{{ url_for('index') }}">LingLong</a>
+      </div>
+
+      <div class="sidebar__cards">
+        <section class="sidecard sidecard--streak" aria-label="Streak">
+          <div class="sidecard__streakNum">14</div>
+          <div class="sidecard__streakMeta">
+            <span class="sidecard__flame" aria-hidden="true">🔥</span>
+            <span class="sidecard__label">Day Streak</span>
+            <span class="sidecard__hint">Keep it going!</span>
+          </div>
+        </section>
+        <section class="sidecard sidecard--todo" aria-label="To-do for today">
+          <div class="sidecard__head">
+            <span class="sidecard__sparkle" aria-hidden="true">✨</span>
+            <h3 class="sidecard__title">To-Do for Today!</h3>
+          </div>
+          <ul class="sidecard__list">
+            <li class="sidecard__listItem">
+              <span class="sidecard__radio" aria-hidden="true"></span>
+              <span>Complete 3 lessons</span>
+            </li>
+            <li class="sidecard__listItem">
+              <span class="sidecard__radio" aria-hidden="true"></span>
+              <span>Get roasted by Linglong</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="sidebar__modes">
+        <h2 class="sidebar__modesTitle">MODES</h2>
+        <div class="modeList">
+          <button class="modeItem modeItem--active" type="button" aria-pressed="true">
+            <span class="modeItem__icon" aria-hidden="true">📖</span>
+            <span class="modeItem__label">Reading</span>
+            <span class="modeItem__check" aria-hidden="true">✓</span>
+          </button>
+          <button class="modeItem" type="button" aria-pressed="false">
+            <span class="modeItem__icon" aria-hidden="true">🎤</span>
+            <span class="modeItem__label">Speaking</span>
+          </button>
+          <button class="modeItem" type="button" aria-pressed="false">
+            <span class="modeItem__icon" aria-hidden="true">🎧</span>
+            <span class="modeItem__label">Listening</span>
+          </button>
+        </div>
+      </div>
+
+      <nav class="sidebar__nav sidebar__nav--bottom" aria-label="Sections">
+        <a class="sidebar__item" href="{{ url_for('index') }}">
+          <span class="sidebar__icon" aria-hidden="true">⌂</span>
+          <span>Home</span>
+        </a>
+        <a class="sidebar__item" href="{{ url_for('index') }}">
+          <span class="sidebar__icon" aria-hidden="true">▦</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="sidebar__item sidebar__item--active" href="{{ url_for('lessons') }}">
+          <span class="sidebar__icon" aria-hidden="true">📁</span>
+          <span>Lessons</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">▤</span>
+          <span>Progress</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">👥</span>
+          <span>Community</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">📅</span>
+          <span>Schedule</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">💬</span>
+          <span>Messages</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <button class="sidebar__collapse" type="button" aria-label="Collapse sidebar">
+        <span aria-hidden="true">‹</span> Collapse
+      </button>
+    </aside>
+
+    <div class="app app--lessons">
+      <main class="main main--lessons">
+        <div class="lessons__toolbar">
+          <div class="lessons__modeChip" aria-current="true">
+            <span class="lessons__modeChipIcon" aria-hidden="true">⭐</span>
+            <span>Reading</span>
+          </div>
+        </div>
+
+        <div class="nodePath" aria-label="Level progression">
+          <svg class="nodePath__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path
+              class="nodePath__line"
+              d="M 8 10 L 28 28 L 52 48 L 72 65 L 58 82 L 82 88"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="0.8"
+              stroke-dasharray="4 3"
+            />
+          </svg>
+          <div class="nodePath__nodes">
+            <a class="node node--locked node--pos1" href="#" aria-label="Level 6 locked">
+              <span class="node__lock" aria-hidden="true">🔒</span>
+            </a>
+            <a class="node node--locked node--pos5" id="nodeLevel2" href="{{ url_for('level', level_id=2) }}" aria-label="2">
+              <span class="node__lock" aria-hidden="true">🔒</span>
+            </a>
+            <a class="node node--locked node--pos4" href="#" aria-label="Level 4 locked">
+              <span class="node__lock" aria-hidden="true">🔒</span>
+            </a>
+            <a class="node node--locked node--pos3" href="#" aria-label="Level 3 locked">
+              <span class="node__lock" aria-hidden="true">🔒</span>
+            </a>
+            <a class="node node--locked node--pos2" href="#" aria-label="Level 2 locked">
+              <span class="node__lock" aria-hidden="true">🔒</span>
+            </a>
+            <a class="node node--unlocked node--pos6" href="{{ url_for('level', level_id=1) }}" aria-label="Level 1 — start">
+              <span class="node__num">1</span>
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("linglong_level1_complete") === "true") {
+            var node2 = document.getElementById("nodeLevel2");
+            if (node2 && node2.classList.contains("node--locked")) {
+              node2.classList.remove("node--locked");
+              node2.classList.add("node--unlocked");
+              node2.href = "{{ url_for('level', level_id=2) }}";
+              node2.setAttribute("aria-label", "Level 2");
+              node2.innerHTML = "<span class=\"node__num\">2</span>";
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </body>
+</html>

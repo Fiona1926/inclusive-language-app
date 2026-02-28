@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>{{ title }}</title>
+    <meta name="description" content="LinguaScroll — Your language learning dashboard." />
+    <meta name="author" content="LinguaScroll" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body>
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar__head">
+        <div class="sidebar__logo" aria-hidden="true">L</div>
+        <span class="sidebar__brand">LingLong</span>
+      </div>
+      <nav class="sidebar__nav" aria-label="Sections">
+        <a class="sidebar__item" href="{{ url_for('index') }}">
+          <span class="sidebar__icon" aria-hidden="true">⌂</span>
+          <span>Home</span>
+        </a>
+        <a class="sidebar__item sidebar__item--active" href="{{ url_for('index') }}">
+          <span class="sidebar__icon" aria-hidden="true">▦</span>
+          <span>Dashboard</span>
+        </a>
+        <a class="sidebar__item" href="{{ url_for('lessons') }}">
+          <span class="sidebar__icon" aria-hidden="true">📁</span>
+          <span>Lessons</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">▤</span>
+          <span>Progress</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">👥</span>
+          <span>Community</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">📅</span>
+          <span>Schedule</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">💬</span>
+          <span>Messages</span>
+        </a>
+        <a class="sidebar__item" href="#">
+          <span class="sidebar__icon" aria-hidden="true">⚙</span>
+          <span>Settings</span>
+        </a>
+      </nav>
+      <button class="sidebar__collapse" type="button" aria-label="Collapse sidebar">
+        <span aria-hidden="true">‹</span> Collapse
+      </button>
+    </aside>
+
+    <div class="app">
+      <header class="header">
+        <div class="search">
+          <span class="search__icon" aria-hidden="true">🔍</span>
+          <input class="search__input" type="search" placeholder="Search lessons, topics..." aria-label="Search lessons and topics" />
+        </div>
+        <div class="header__actions">
+          <button class="header__btn" type="button" aria-label="Notifications">
+            <span class="header__bell" aria-hidden="true">🔔</span>
+            <span class="header__badge" aria-hidden="true"></span>
+          </button>
+          <a class="header__btn" href="{{ url_for('profile') }}" aria-label="Profile">
+            <span class="header__userIcon" aria-hidden="true">👤</span>
+          </a>
+          <a class="header__avatar" href="{{ url_for('profile') }}" aria-label="Profile">JS</a>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="dashboard">
+          <section class="card card--slideshow" aria-label="Welcome and progress">
+            <div class="slideshow__wrap">
+              <div class="dots dots--vertical" role="tablist" aria-label="Slide navigation">
+                <button class="dot is-active" type="button" role="tab" aria-label="Go to slide 1" aria-current="true" data-dot="0"></button>
+                <button class="dot" type="button" role="tab" aria-label="Go to slide 2" data-dot="1"></button>
+                <button class="dot" type="button" role="tab" aria-label="Go to slide 3" data-dot="2"></button>
+                <button class="dot" type="button" role="tab" aria-label="Go to slide 4" data-dot="3"></button>
+              </div>
+              <div class="slideshow__frame" tabindex="0" aria-label="Slideshow (use left/right arrows)">
+                <div class="slides" id="slides">
+                  <figure class="slide is-active" data-slide="0">
+                    <div class="slide__welcome">
+                      <div class="slide__callout">Live conversation happening!</div>
+                      <h2 class="slide__title">Welcome to LinguaScroll</h2>
+                      <p class="slide__subtitle">Your language learning dashboard</p>
+                    </div>
+                  </figure>
+                  <figure class="slide" data-slide="1">
+                    <img
+                      src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80"
+                      alt="Track your progress — stay consistent with daily goals."
+                      loading="lazy"
+                    />
+                    <div class="slide__overlay">
+                      <h2 class="slide__overlayTitle">Track Your Progress</h2>
+                      <p class="slide__overlaySub">Stay consistent with daily goals</p>
+                    </div>
+                  </figure>
+                  <figure class="slide" data-slide="2">
+                    <img
+                      src="{{ url_for('static', filename='slides/slide-1.svg') }}"
+                      alt="Spanish greetings: Buenos días."
+                      loading="lazy"
+                    />
+                  </figure>
+                  <figure class="slide" data-slide="3">
+                    <img
+                      src="{{ url_for('static', filename='slides/slide-2.svg') }}"
+                      alt="Grammar: Ser vs Estar."
+                      loading="lazy"
+                    />
+                  </figure>
+                </div>
+              </div>
+            </div>
+            <button class="card__info" type="button" aria-label="Information">ⓘ</button>
+          </section>
+
+          <section class="card card--todo" aria-label="To-do">
+            <div class="card__head">
+              <h2 class="card__title">To-Do</h2>
+              <span class="card__count" id="todoCount">2/5</span>
+            </div>
+            <ul class="todoList">
+              <li class="todoList__item todoList__item--done">
+                <span class="todoList__check" aria-hidden="true">✓</span>
+                <span>Complete Spanish Lesson 4</span>
+              </li>
+              <li class="todoList__item todoList__item--done">
+                <span class="todoList__check" aria-hidden="true">✓</span>
+                <span>Submit weekly quiz</span>
+              </li>
+              <li class="todoList__item">
+                <span class="todoList__circle" aria-hidden="true"></span>
+                <span>Review vocabulary flashcards</span>
+              </li>
+              <li class="todoList__item">
+                <span class="todoList__circle" aria-hidden="true"></span>
+                <span>Practice pronunciation</span>
+              </li>
+              <li class="todoList__item todoList__item--focus">
+                <span class="todoList__circle" aria-hidden="true"></span>
+                <span>Watch culture reel</span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="card card--calendar" aria-label="February 2026 calendar">
+            <div class="card__head">
+              <span class="card__icon" aria-hidden="true">📅</span>
+              <h2 class="card__title">February 2026</h2>
+            </div>
+            <div class="calendar">
+              <div class="calendar__weekdays" aria-hidden="true">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div class="calendar__grid" aria-hidden="true">
+                <span class="calCell calCell--muted"></span>
+                <span class="calCell calCell--muted"></span>
+                <span class="calCell calCell--muted"></span>
+                <span class="calCell calCell--muted"></span>
+                <span class="calCell calCell--muted"></span>
+                <span class="calCell calCell--muted"></span>
+                <span class="calCell">1</span>
+                <span class="calCell">2</span>
+                <span class="calCell">3</span>
+                <span class="calCell">4</span>
+                <span class="calCell">5</span>
+                <span class="calCell">6</span>
+                <span class="calCell">7</span>
+                <span class="calCell">8</span>
+                <span class="calCell">9</span>
+                <span class="calCell">10</span>
+                <span class="calCell">11</span>
+                <span class="calCell">12</span>
+                <span class="calCell">13</span>
+                <span class="calCell">14</span>
+                <span class="calCell">15</span>
+                <span class="calCell">16</span>
+                <span class="calCell">17</span>
+                <span class="calCell">18</span>
+                <span class="calCell">19</span>
+                <span class="calCell">20</span>
+                <span class="calCell">21</span>
+                <span class="calCell">22</span>
+                <span class="calCell">23</span>
+                <span class="calCell">24</span>
+                <span class="calCell">25</span>
+                <span class="calCell">26</span>
+                <span class="calCell">27</span>
+                <span class="calCell calCell--today">28</span>
+                <span class="calCell calCell--muted"></span>
+                <span class="calCell calCell--muted"></span>
+              </div>
+            </div>
+          </section>
+
+          <section class="card card--live" aria-label="Live conversations">
+            <div class="card__head">
+              <span class="card__icon" aria-hidden="true">💬</span>
+              <h2 class="card__title">Live Conversations</h2>
+            </div>
+            <ul class="convList">
+              <li class="convList__item">
+                <div class="convList__avatar convList__avatar--online">MG</div>
+                <div class="convList__body">
+                  <div class="convList__name">Maria G.</div>
+                  <div class="convList__msg">¡Hola! Ready for today's lesson?</div>
+                  <div class="convList__time">2m ago</div>
+                </div>
+              </li>
+              <li class="convList__item">
+                <div class="convList__avatar convList__avatar--online">LR</div>
+                <div class="convList__body">
+                  <div class="convList__name">Luca R.</div>
+                  <div class="convList__msg">Can you explain subjunctive?</div>
+                  <div class="convList__time">15m ago</div>
+                </div>
+              </li>
+              <li class="convList__item">
+                <div class="convList__avatar">YT</div>
+                <div class="convList__body">
+                  <div class="convList__name">Yuki T.</div>
+                  <div class="convList__msg">Great job on the quiz!</div>
+                  <div class="convList__time">1h ago</div>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='main.js') }}" defer></script>
+  </body>
+</html>

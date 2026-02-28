@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="profile-page">
+    <header class="profile-header">
+      <a class="profile-header__link" href="{{ url_for('index') }}" aria-label="Home">🏠</a>
+      <h1 class="profile-header__title">LingLong</h1>
+      <a class="profile-header__link" href="#" aria-label="Settings">⚙️</a>
+    </header>
+
+    <div class="profile-layout">
+      <main class="profile-main">
+        <section class="profile-section">
+          <div class="profile-header-card">
+            <div class="profile-avatar-wrap">
+              <div class="profile-avatar" aria-hidden="true">👤</div>
+              <span class="profile-avatar-badge">ID</span>
+            </div>
+            <div class="profile-meta">
+              <h2 class="profile-username">linglong_learner</h2>
+              <div class="profile-stats">
+                <span class="profile-stat"><strong>24</strong> Posts</span>
+                <span class="profile-stat"><strong>1,283</strong> Followers</span>
+                <span class="profile-stat"><strong>312</strong> Following</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-achievements" aria-label="Achievements">
+          <h3 class="profile-achievements__title">ACHIEVEMENTS</h3>
+          <div class="profile-achievements__grid">
+            <div class="achievement-card">
+              <div class="achievement-card__icon achievement-card__icon--book">📖</div>
+              <div class="achievement-card__name">Rizzler</div>
+              <div class="achievement-card__desc">Completed 50 Writing Tasks</div>
+            </div>
+            <div class="achievement-card achievement-card--highlight">
+              <div class="achievement-card__icon achievement-card__icon--flame">🔥</div>
+              <div class="achievement-card__name">Alpha</div>
+              <div class="achievement-card__desc">60 min uninterrupted study</div>
+            </div>
+            <div class="achievement-card">
+              <div class="achievement-card__icon achievement-card__icon--trophy">🏆</div>
+              <div class="achievement-card__name">Conqueror</div>
+              <div class="achievement-card__desc">Finish all Level 5 modules</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-tabs" aria-label="Content tabs">
+          <div class="profile-tabs__list" role="tablist">
+            <button type="button" class="profile-tab is-active" role="tab" aria-selected="true" data-tab="reels" id="tab-reels">
+              <span aria-hidden="true">📷</span> Reels
+            </button>
+            <button type="button" class="profile-tab" role="tab" aria-selected="false" data-tab="saved" id="tab-saved">
+              <span aria-hidden="true">💾</span> Saved
+            </button>
+          </div>
+          <div class="profile-tab-panel is-active" role="tabpanel" id="panel-reels" aria-labelledby="tab-reels">
+            <div class="profile-reels-grid">
+              <div class="profile-reel-placeholder profile-reel-placeholder--1"></div>
+              <div class="profile-reel-placeholder profile-reel-placeholder--2"></div>
+              <div class="profile-reel-placeholder profile-reel-placeholder--3"></div>
+            </div>
+          </div>
+          <div class="profile-tab-panel" role="tabpanel" id="panel-saved" aria-labelledby="tab-saved" hidden>
+            <p class="profile-empty">No saved items yet</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="profile-sidebar" aria-label="Suggested for you">
+        <div class="suggested-card">
+          <h3 class="suggested-card__title">SUGGESTED FOR YOU</h3>
+          <ul class="suggested-list">
+            <li class="suggested-list__item">
+              <div class="suggested-list__avatar" aria-hidden="true">👤</div>
+              <div class="suggested-list__info">
+                <span class="suggested-list__name">Linglong</span>
+                <span class="suggested-list__handle">@linglong_ai</span>
+              </div>
+              <button type="button" class="suggested-list__btn">Follow</button>
+            </li>
+            <li class="suggested-list__item">
+              <div class="suggested-list__avatar" aria-hidden="true">👤</div>
+              <div class="suggested-list__info">
+                <span class="suggested-list__name">HKU_Polyglot</span>
+                <span class="suggested-list__handle">@hku_polyglot</span>
+              </div>
+              <button type="button" class="suggested-list__btn">Follow</button>
+            </li>
+            <li class="suggested-list__item">
+              <div class="suggested-list__avatar" aria-hidden="true">👤</div>
+              <div class="suggested-list__info">
+                <span class="suggested-list__name">Indo_Master</span>
+                <span class="suggested-list__handle">@indo_master</span>
+              </div>
+              <button type="button" class="suggested-list__btn suggested-list__btn--following">Following</button>
+            </li>
+            <li class="suggested-list__item">
+              <div class="suggested-list__avatar" aria-hidden="true">👤</div>
+              <div class="suggested-list__info">
+                <span class="suggested-list__name">Sarah_Learns</span>
+                <span class="suggested-list__handle">@sarah_learns</span>
+              </div>
+              <button type="button" class="suggested-list__btn">Follow</button>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <script>
+      (function () {
+        var tabReels = document.getElementById("tab-reels");
+        var tabSaved = document.getElementById("tab-saved");
+        var panelReels = document.getElementById("panel-reels");
+        var panelSaved = document.getElementById("panel-saved");
+        if (!tabReels || !tabSaved || !panelReels || !panelSaved) return;
+        function showReels() {
+          tabReels.classList.add("is-active");
+          tabSaved.classList.remove("is-active");
+          tabReels.setAttribute("aria-selected", "true");
+          tabSaved.setAttribute("aria-selected", "false");
+          panelReels.classList.add("is-active");
+          panelReels.hidden = false;
+          panelSaved.classList.remove("is-active");
+          panelSaved.hidden = true;
+        }
+        function showSaved() {
+          tabSaved.classList.add("is-active");
+          tabReels.classList.remove("is-active");
+          tabSaved.setAttribute("aria-selected", "true");
+          tabReels.setAttribute("aria-selected", "false");
+          panelSaved.classList.add("is-active");
+          panelSaved.hidden = false;
+          panelReels.classList.remove("is-active");
+          panelReels.hidden = true;
+        }
+        tabReels.addEventListener("click", showReels);
+        tabSaved.addEventListener("click", showSaved);
+      })();
+    </script>
+  </body>
+</html>
