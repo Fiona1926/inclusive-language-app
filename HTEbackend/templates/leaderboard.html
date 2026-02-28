@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — LingLong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="leaderboard-page">
+    <header class="profile-header">
+      <a class="profile-header__link" href="{{ url_for('pages.dashboard') }}" aria-label="Home">🏠</a>
+      <h1 class="profile-header__title">LingLong</h1>
+      <a class="profile-header__link" href="#" aria-label="Settings">⚙️</a>
+    </header>
+
+    <main class="leaderboard-main">
+      <div class="leaderboard-viz" aria-hidden="true">
+        <svg class="leaderboard-viz__svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color: var(--teal); stop-opacity: 0.4" />
+              <stop offset="100%" style="stop-color: var(--teal); stop-opacity: 0.05" />
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#lbGrad)" stroke-width="0.8" stroke-dasharray="3 2" opacity="0.8">
+            <path d="M 80 60 L 120 100 L 200 80 L 280 100 L 320 60" />
+            <path d="M 120 100 L 200 140 L 280 100" />
+            <path d="M 200 80 L 200 140" />
+            <path d="M 160 160 L 200 140 L 240 160" />
+          </g>
+          <g fill="var(--teal)" opacity="0.6">
+            <circle cx="80" cy="60" r="6" />
+            <circle cx="120" cy="100" r="8" />
+            <circle cx="200" cy="80" r="10" />
+            <circle cx="200" cy="140" r="10" />
+            <circle cx="280" cy="100" r="8" />
+            <circle cx="320" cy="60" r="6" />
+            <circle cx="160" cy="160" r="5" />
+            <circle cx="240" cy="160" r="5" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="leaderboard-summary">
+        <p class="leaderboard-summary__text">
+          You're smarter than <strong class="leaderboard-summary__pct">87%</strong> of people learning <strong>Indonesian</strong> this week
+          <span class="leaderboard-summary__trend" aria-hidden="true">📈</span>
+        </p>
+      </div>
+
+      <div class="leaderboard-tabs" role="tablist" aria-label="Leaderboard view">
+        <button type="button" class="leaderboard-tab is-active" role="tab" aria-selected="true" data-tab="points">Weekly Points</button>
+        <button type="button" class="leaderboard-tab" role="tab" aria-selected="false" data-tab="time">Time Spent</button>
+        <button type="button" class="leaderboard-tab" role="tab" aria-selected="false" data-tab="rank">Overall Rank</button>
+      </div>
+
+      <ul class="leaderboard-list" id="leaderboardList" aria-label="Leaderboard"></ul>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/api.js') }}" defer></script>
+    <script>
+(function () {
+  var RANK_ICONS = { 1: "👑", 2: "🥈", 3: "🥉" };
+
+  var weeklyPoints = [
+    { name: "Linglong_Slayer", value: "4,820 pts", isYou: false },
+    { name: "BahasaBoss", value: "3,900 pts", isYou: false },
+    { name: "IndoMaster99", value: "3,450 pts", isYou: false },
+    { name: "BaliBound", value: "3,180 pts", isYou: false },
+    { name: "JavaneseJive", value: "2,950 pts", isYou: false },
+    { name: "SurabayaStar", value: "2,720 pts", isYou: false },
+    { name: "KataKeeper", value: "2,500 pts", isYou: false },
+    { name: "NusantaraNinja", value: "2,280 pts", isYou: false },
+    { name: "SelamatSayer", value: "2,060 pts", isYou: false },
+    { name: "TerimaKasih", value: "1,840 pts", isYou: false },
+    { name: "PagiPro", value: "1,620 pts", isYou: false },
+    { name: "MalamMaster", value: "1,410 pts", isYou: false },
+    { name: "SampaiJumpa", value: "1,200 pts", isYou: false },
+    { name: "ApaKabar", value: "1,090 pts", isYou: false },
+    { name: "LinguaLover", value: "980 pts", isYou: false },
+    { name: "JakartaJumper", value: "960 pts", isYou: false },
+    { name: "SumatraSeeker", value: "940 pts", isYou: false },
+    { name: "PapuaPilot", value: "925 pts", isYou: false },
+    { name: "KalimantanKid", value: "915 pts", isYou: false },
+    { name: "SulawesiSpirit", value: "908 pts", isYou: false },
+    { name: "MerdekaMind", value: "902 pts", isYou: false },
+    { name: "RendangRunner", value: "896 pts", isYou: false },
+    { name: "WayangWatcher", value: "893 pts", isYou: false },
+    { name: "You_TheChamp", value: "890 pts", isYou: true }
+  ];
+
+  var timeSpent = [
+    { name: "StudyGrind", value: "8h 45m", isYou: false },
+    { name: "Linglong_Slayer", value: "7h 20m", isYou: false },
+    { name: "BahasaBoss", value: "6h 55m", isYou: false },
+    { name: "IndoMaster99", value: "6h 10m", isYou: false },
+    { name: "BaliBound", value: "5h 40m", isYou: false },
+    { name: "JavaneseJive", value: "5h 05m", isYou: false },
+    { name: "SurabayaStar", value: "4h 30m", isYou: false },
+    { name: "KataKeeper", value: "3h 55m", isYou: false },
+    { name: "NusantaraNinja", value: "3h 18m", isYou: false },
+    { name: "SelamatSayer", value: "2h 50m", isYou: false },
+    { name: "TerimaKasih", value: "2h 12m", isYou: false },
+    { name: "You_TheChamp", value: "1h 42m", isYou: true },
+    { name: "PagiPro", value: "1h 15m", isYou: false },
+    { name: "MalamMaster", value: "58m", isYou: false },
+    { name: "SampaiJumpa", value: "35m", isYou: false },
+    { name: "ApaKabar", value: "22m", isYou: false }
+  ];
+
+  var overallRank = [
+    { name: "Linglong_Slayer", value: "#1", isYou: false },
+    { name: "BahasaBoss", value: "#2", isYou: false },
+    { name: "IndoMaster99", value: "#3", isYou: false },
+    { name: "BaliBound", value: "#4", isYou: false },
+    { name: "JavaneseJive", value: "#5", isYou: false },
+    { name: "SurabayaStar", value: "#6", isYou: false },
+    { name: "KataKeeper", value: "#7", isYou: false },
+    { name: "NusantaraNinja", value: "#8", isYou: false },
+    { name: "SelamatSayer", value: "#9", isYou: false },
+    { name: "TerimaKasih", value: "#10", isYou: false },
+    { name: "PagiPro", value: "#11", isYou: false },
+    { name: "MalamMaster", value: "#12", isYou: false },
+    { name: "SampaiJumpa", value: "#13", isYou: false },
+    { name: "StudyGrind", value: "#14", isYou: false },
+    { name: "ApaKabar", value: "#15", isYou: false },
+    { name: "LinguaLover", value: "#16", isYou: false },
+    { name: "JakartaJumper", value: "#17", isYou: false },
+    { name: "SumatraSeeker", value: "#18", isYou: false },
+    { name: "You_TheChamp", value: "#19", isYou: true },
+    { name: "PapuaPilot", value: "#20", isYou: false },
+    { name: "KalimantanKid", value: "#21", isYou: false },
+    { name: "SulawesiSpirit", value: "#22", isYou: false },
+    { name: "MerdekaMind", value: "#23", isYou: false },
+    { name: "RendangRunner", value: "#24", isYou: false },
+    { name: "WayangWatcher", value: "#25", isYou: false },
+    { name: "RinjaniRiser", value: "#26", isYou: false },
+    { name: "BorobudurBuddy", value: "#27", isYou: false },
+    { name: "GamelanGuru", value: "#28", isYou: false },
+    { name: "KopiKing", value: "#29", isYou: false },
+    { name: "SataySeeker", value: "#30", isYou: false },
+    { name: "TempeTitan", value: "#31", isYou: false }
+  ];
+
+  var tabs = { points: weeklyPoints, time: timeSpent, rank: overallRank };
+  var listEl = document.getElementById("leaderboardList");
+  var tabBtns = document.querySelectorAll(".leaderboard-tab");
+
+  function render(entries) {
+    listEl.innerHTML = "";
+    entries.forEach(function (entry, i) {
+      var rank = i + 1;
+      var rankIcon = RANK_ICONS[rank];
+      var rankHtml = rankIcon
+        ? '<span class="leaderboard-item__rank leaderboard-item__rank--icon" aria-hidden="true">' + rankIcon + "</span>"
+        : '<span class="leaderboard-item__rank leaderboard-item__rank--num">' + rank + "</span>";
+      var nameDisplay = entry.isYou ? entry.name + ' <span class="leaderboard-item__you">(You)</span>' : entry.name;
+      var rowClass = "leaderboard-item";
+      if (rank <= 3) rowClass += " leaderboard-item--" + rank;
+      if (entry.isYou) rowClass += " leaderboard-item--you";
+      var avatarClass = "leaderboard-item__avatar";
+      if (entry.isYou) avatarClass += " leaderboard-item__avatar--you";
+      var li = document.createElement("li");
+      li.className = rowClass;
+      li.setAttribute("aria-label", "Rank " + rank + (entry.isYou ? " — You" : ""));
+      li.innerHTML =
+        rankHtml +
+        '<span class="' + avatarClass + '">👤</span>' +
+        '<span class="leaderboard-item__name">' + nameDisplay + "</span>" +
+        '<span class="leaderboard-item__pts">' + entry.value + "</span>";
+      listEl.appendChild(li);
+    });
+  }
+
+  function setActiveTab(key) {
+    tabBtns.forEach(function (btn) {
+      var isActive = btn.getAttribute("data-tab") === key;
+      btn.classList.toggle("is-active", isActive);
+      btn.setAttribute("aria-selected", isActive);
+    });
+    listEl.setAttribute("aria-label", key === "points" ? "Weekly points leaderboard" : key === "time" ? "Time spent leaderboard" : "Overall rank leaderboard");
+    render(tabs[key]);
+  }
+
+  tabBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      setActiveTab(btn.getAttribute("data-tab"));
+    });
+  });
+
+  setActiveTab("points");
+})();
+    </script>
+  </body>
+</html>

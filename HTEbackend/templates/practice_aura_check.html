@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — LingLong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="practice-page">
+    <header class="practice-header">
+      <a class="practice-header__home" href="{{ url_for('pages.dashboard') }}" aria-label="Home">🏠</a>
+      <span class="practice-header__brand">LingLong</span>
+      <span class="practice-header__aura">0 Aura</span>
+    </header>
+
+    <main class="practice-main practice-main--aura">
+      <h1 class="practice-title practice-title--aura">
+        <span class="practice-title__icon" aria-hidden="true">👥</span>
+        Aura Check
+      </h1>
+
+      <section class="practice-question" aria-labelledby="q-a-label">
+        <h2 class="practice-question__label" id="q-a-label">Question A (Your Output)</h2>
+        <p class="practice-question__text">What did you tell your partner your hobby was?</p>
+        <div class="practice-options practice-options--q-a" role="group" aria-label="Choose one answer">
+          <button type="button" class="practice-option" data-value="Swimming">Swimming</button>
+          <button type="button" class="practice-option" data-value="Sleeping">Sleeping</button>
+          <button type="button" class="practice-option" data-value="Reading">Reading</button>
+          <button type="button" class="practice-option" data-value="Cooking">Cooking</button>
+        </div>
+      </section>
+
+      <section class="practice-question" aria-labelledby="q-b-label">
+        <h2 class="practice-question__label" id="q-b-label">Question B (Partner Input)</h2>
+        <p class="practice-question__text">What is Budi's favorite food?</p>
+        <div class="practice-options practice-options--q-b" role="group" aria-label="Choose one answer">
+          <button type="button" class="practice-option" data-value="Rendang">Rendang</button>
+          <button type="button" class="practice-option" data-value="Sate">Sate</button>
+          <button type="button" class="practice-option" data-value="Nasi Goreng">Nasi Goreng</button>
+          <button type="button" class="practice-option" data-value="Bakso">Bakso</button>
+        </div>
+      </section>
+
+      <button type="button" id="checkAuraBtn" class="practice-btn practice-btn--primary practice-btn--wide">
+        Check My Aura
+        <span class="practice-btn__icon practice-btn__icon--aura" aria-hidden="true">✨</span>
+      </button>
+    </main>
+    <script>
+      (function () {
+        var AURA_PER_WRONG = 10;
+        var CORRECT_A = "Sleeping";
+        var CORRECT_B = "Nasi Goreng";
+
+        document.querySelectorAll(".practice-options").forEach(function (group) {
+          var opts = group.querySelectorAll(".practice-option");
+          opts.forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              opts.forEach(function (o) { o.classList.remove("is-selected"); });
+              btn.classList.add("is-selected");
+            });
+          });
+        });
+
+        document.getElementById("checkAuraBtn").addEventListener("click", function () {
+          var selectedA = document.querySelector(".practice-options--q-a .practice-option.is-selected");
+          var selectedB = document.querySelector(".practice-options--q-b .practice-option.is-selected");
+          var wrong = 0;
+          if (selectedA && selectedA.getAttribute("data-value") !== CORRECT_A) wrong += 1;
+          if (selectedB && selectedB.getAttribute("data-value") !== CORRECT_B) wrong += 1;
+          var deducted = wrong * AURA_PER_WRONG;
+          try {
+            sessionStorage.setItem("practice_aura_deducted", String(deducted));
+          } catch (e) {}
+          window.location.href = "{{ url_for('pages.practice_partner_complete') }}";
+        });
+      })();
+    </script>
+  </body>
+</html>

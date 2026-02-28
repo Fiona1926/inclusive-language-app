@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — Linglong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="onboarding-page challenge-result-page">
+    <div class="onboarding-bg" aria-hidden="true"></div>
+    <main class="onboarding-card onboarding-card--wide">
+      <div class="challenge-result__mascot">
+        <img src="{{ url_for('static', filename='linglong/happy.png') }}" alt="Linglong" />
+      </div>
+      <h1 class="onboarding-card__title challenge-result__title">Maximum Aura Achieved</h1>
+      <p class="onboarding-card__subtitle">Linglong is proud. You've completed the Beat-Pause Challenge.</p>
+      <p class="challenge-result__summary" id="resultSummary"></p>
+      <div class="challenge-result__grid" id="resultsGrid" aria-label="Question results"></div>
+      <a href="{{ url_for('pages.dashboard') }}" class="onboarding-btn onboarding-btn--primary">Back to Home</a>
+    </main>
+    <script>
+(function () {
+  var correct = 0;
+  var wrong = 0;
+  var results = [];
+  var words = [];
+  try {
+    correct = parseInt(sessionStorage.getItem("challenge_correct"), 10) || 0;
+    wrong = parseInt(sessionStorage.getItem("challenge_wrong"), 10) || 0;
+    var resultsStored = sessionStorage.getItem("challenge_results");
+    if (resultsStored) results = JSON.parse(resultsStored);
+    var wordsStored = sessionStorage.getItem("challenge_words");
+    if (wordsStored) words = JSON.parse(wordsStored);
+  } catch (e) {}
+  var total = results.length || 10;
+  if (total === 0) total = correct + wrong || 10;
+  var summaryEl = document.getElementById("resultSummary");
+  if (summaryEl) summaryEl.textContent =
+    "You got " + correct + " correct and " + wrong + " wrong. " +
+    (correct === total ? "All " + total + " words mastered on the beat!" : total + " questions total.");
+  var grid = document.getElementById("resultsGrid");
+  if (!grid) return;
+  for (var i = 0; i < 10; i++) {
+    var isCorrect = i < results.length ? results[i] : null;
+    var word = i < words.length ? words[i] : (i + 1);
+    var box = document.createElement("div");
+    box.className = "challenge-result__box " + (isCorrect === true ? "challenge-result__box--correct" : isCorrect === false ? "challenge-result__box--incorrect" : "challenge-result__box--unknown");
+    box.setAttribute("aria-label", "Question " + (i + 1) + (isCorrect === true ? " correct" : isCorrect === false ? " incorrect" : ""));
+    box.innerHTML = "<span class=\"challenge-result__box-num\">" + (i + 1) + "</span><span class=\"challenge-result__box-word\">" + (word || "") + "</span>";
+    grid.appendChild(box);
+  }
+})();
+    </script>
+  </body>
+</html>

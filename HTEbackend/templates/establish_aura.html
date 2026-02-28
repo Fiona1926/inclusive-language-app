@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — Linglong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="onboarding-page">
+    <div class="onboarding-bg" aria-hidden="true"></div>
+    <main class="onboarding-card">
+      <div class="onboarding-card__mascot">
+        <img src="{{ url_for('static', filename='linglong/neutral.png') }}" alt="Linglong" class="onboarding-card__mascot-img" />
+      </div>
+      <h1 class="onboarding-card__title">Establish Your Aura.</h1>
+      <p class="onboarding-card__subtitle">Choose your path, linguist.</p>
+      <form class="onboarding-form" action="{{ url_for('pages.customize') }}" method="get">
+        <label class="onboarding-form__label">NATIVE LANGUAGE</label>
+        <select name="native" class="onboarding-form__input onboarding-form__select">
+          <option value="en">English</option>
+          <option value="th">Thai</option>
+          <option value="zh">Chinese</option>
+          <option value="es">Spanish</option>
+          <option value="id">Indonesian</option>
+        </select>
+        <label class="onboarding-form__label">WHAT LANGUAGE ARE YOU LEARNING TODAY?</label>
+        <select name="learning" class="onboarding-form__input onboarding-form__select">
+          <option value="id">Indonesian — Bahasa Indonesia</option>
+          <option value="th">Thai</option>
+          <option value="zh">Chinese</option>
+          <option value="es">Spanish</option>
+          <option value="en">English</option>
+        </select>
+        <button type="submit" class="onboarding-btn onboarding-btn--primary">CONFIRM & START CHALLENGE</button>
+      </form>
+    </main>
+  </body>
+</html>

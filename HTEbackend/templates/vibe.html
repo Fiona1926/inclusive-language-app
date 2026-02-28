@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} — Linglong</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}" />
+  </head>
+
+  <body class="onboarding-page">
+    <div class="onboarding-bg" aria-hidden="true"></div>
+    <main class="onboarding-card onboarding-card--wide">
+      <h1 class="onboarding-card__title">What's your vibe?</h1>
+      <p class="onboarding-card__subtitle">Tap the tags that match your energy.</p>
+      <div class="vibe-tags" id="vibeTags">
+        <button type="button" class="vibe-tag" data-vibe="sports">🏀 Sports</button>
+        <button type="button" class="vibe-tag vibe-tag--on" data-vibe="nature">🌿 Nature</button>
+        <button type="button" class="vibe-tag vibe-tag--on" data-vibe="music">🎵 Music</button>
+        <button type="button" class="vibe-tag" data-vibe="food">🍜 Food</button>
+        <button type="button" class="vibe-tag" data-vibe="games">🎮 Games</button>
+        <button type="button" class="vibe-tag vibe-tag--on" data-vibe="tech">💻 Tech</button>
+        <button type="button" class="vibe-tag" data-vibe="fashion">👔 Fashion</button>
+      </div>
+      <p class="vibe-note">Linglong will curate your Reels based on these interests.</p>
+      <div class="onboarding-card__actions">
+        <a href="{{ url_for('pages.customize') }}" class="onboarding-btn onboarding-btn--secondary">← BACK</a>
+        <a href="{{ url_for('pages.challenge') }}" class="onboarding-btn onboarding-btn--primary">CONFIRM & START CHALLENGE</a>
+      </div>
+    </main>
+    <script>
+      (function () {
+        document.getElementById("vibeTags").addEventListener("click", function (e) {
+          var tag = e.target.closest(".vibe-tag");
+          if (tag) tag.classList.toggle("vibe-tag--on");
+        });
+      })();
+    </script>
+  </body>
+</html>
