@@ -101,9 +101,3 @@ Tests use a temporary SQLite database and Flask’s `test_client` for the API.
 - **Reels**: Creators upload short videos; every 5 reels form a **batch** with one **question crafted from the videos’ audio**. Learners watch the 5 reels then answer the question. Optional dubbing per reel.
 
 ---
-
-## Next steps
-
-1. Set `OPENAI_API_KEY` and implement TTS/STT in `app/services/tts_stt.py`.
-2. Add file upload for speaking audio and store URLs in `SpeakingAttempt.audio_url`.
-3. Add AI-based feedback for writing and speech assessment for speaking if desired.
